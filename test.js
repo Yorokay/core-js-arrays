@@ -152,22 +152,56 @@ function findLongestIncreasingSubsequence(nums) {
 
 // console.log(sortDigitNamesByNumericOrder(['one', 'two', 'three']));
 
-function swapHeadAndTail(arr) {
-  if (arr.length < 2) return arr;
-  const endHeadId = Math.floor(arr.length / 2);
-  let startTailId = endHeadId;
-  if (arr.length % 2 !== 0) {
-    startTailId = endHeadId + 1;
+// function swapHeadAndTail(arr) {
+//   if (arr.length < 2) return arr;
+//   const endHeadId = Math.floor(arr.length / 2);
+//   let startTailId = endHeadId;
+//   if (arr.length % 2 !== 0) {
+//     startTailId = endHeadId + 1;
+//   }
+
+//   const headArr = arr.slice(0, endHeadId);
+//   const tailArr = arr.slice(startTailId);
+
+//   arr.splice(0, endHeadId, tailArr).flat(2);
+//   const resultArr = arr.flat(2);
+//   resultArr.splice(startTailId, resultArr.length, headArr);
+
+//   return resultArr.flat(2);
+// }
+
+// console.log(swapHeadAndTail([1, 2, 3, 4]));
+
+// function createChunks(arr, chunkSize) {
+//   const resultArr = [];
+//   let counter = chunkSize;
+//   let preventIndex = 0;
+//   arr.map((item, index) => {
+//     if (index === counter - 1) {
+//       resultArr.push(arr.slice(index - chunkSize + 1, counter));
+//       preventIndex = counter;
+//       counter += chunkSize;
+//       return item;
+//     }
+//     if (index === arr.length - 1) {
+//       resultArr.push(arr.slice(preventIndex));
+//     }
+//     return item;
+//   });
+//   return resultArr;
+// }
+
+// console.log(createChunks([10, 20, 30, 40, 50], 1));
+
+function getElementByIndices(arr, indices) {
+  const index = indices[0];
+  let result = arr[index];
+
+  if (typeof result === 'object') {
+    indices.splice(0, 1);
+    result = getElementByIndices(result, indices);
   }
-
-  const headArr = arr.slice(0, endHeadId);
-  const tailArr = arr.slice(startTailId);
-
-  arr.splice(0, endHeadId, tailArr).flat(2);
-  const resultArr = arr.flat(2);
-  resultArr.splice(startTailId, resultArr.length, headArr);
-
-  return resultArr.flat(2);
+  return result;
 }
 
-console.log(swapHeadAndTail([1, 2, 3, 4]));
+console.log(getElementByIndices([[[1, 2, 3]]], [0, 0, 1]));
